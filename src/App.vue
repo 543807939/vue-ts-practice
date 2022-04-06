@@ -1,8 +1,13 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link>|
-    <router-link to="/about">About</router-link>
-  </div>
+  <p>
+    <router-link to="/login">
+      <template #default>
+        <el-button type="primary">登录</el-button>
+      </template>
+    </router-link>
+    <router-link to="/main">首页</router-link>
+  </p>
+  <el-input></el-input>
   <router-view />
 </template>
 
