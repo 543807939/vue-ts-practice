@@ -2,15 +2,12 @@
   <div>登录</div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 
 export default defineComponent({
   setup() {
-    return {}
+    return {};
   },
-})
+});
 </script>
-<style lang="sass" scoped>
-</style>
-
-
+<style lang="sass" scoped></style>

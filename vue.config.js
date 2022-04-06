@@ -1,10 +1,10 @@
 module.exports = {
-  outputDir: 'dist',
+  outputDir: "dist",
   configureWebpack: {
     resolve: {
       alias: {
-        'components': '@/components'
-      }
-    }
-  }
-}
+        components: "@/components",
+      },
+    },
+  },
+};
