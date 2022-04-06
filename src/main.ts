@@ -7,8 +7,8 @@ import { registerApp } from "@/global/index";
 import myRequest from "./service";
 
 myRequest.request({
-    url:'/home/multidata'
-})
+  url: "/home/multidata",
+});
 const app = createApp(App);
 registerApp(app);
 app.use(store).use(router).mount("#app");
