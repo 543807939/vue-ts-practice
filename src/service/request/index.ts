@@ -1,9 +1,12 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { MyInterceptors, MyConfig } from "./type";
 import { ElLoading } from "element-plus";
+// import {ILoadingInstance} from 'element-plus/lib/components/'
 class MyRequest {
   instance: AxiosInstance;
   interceptors?: MyInterceptors;
+  loading?: any;
+  // loading?: ILoadingInstance;
   constructor(config: MyConfig) {
     this.instance = axios.create(config);
     this.interceptors = config.interceptors;
@@ -21,7 +24,7 @@ class MyRequest {
     // 所有实例都有的拦截器
     this.instance.interceptors.request.use(
       (config) => {
-        ElLoading.service({
+        this.loading = ElLoading.service({
           lock: true,
           text: "正在请求...",
           background: "#f08",
@@ -36,10 +39,12 @@ class MyRequest {
     );
     this.instance.interceptors.response.use(
       (res) => {
+        this.loading.close();
         console.log("响应拦截器拦截成功");
         return res;
       },
       (err) => {
+        this.loading.close();
         console.log("响应拦截器拦截失败");
       }
     );
