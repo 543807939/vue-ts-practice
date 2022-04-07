@@ -1,6 +1,11 @@
 <template>
   <div class="login-account">
-    <el-form label-position="right" label-width="60px" :model="formData" style="max-width: 460px">
+    <el-form
+      label-position="right"
+      label-width="60px"
+      :model="formData"
+      style="max-width: 460px"
+    >
       <el-form-item label="账号">
         <el-input v-model="formData.account" />
       </el-form-item>
@@ -11,19 +16,19 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   setup() {
     const formData = ref({
-      account: '',
-      password: '',
-    })
+      account: "",
+      password: "",
+    });
     return {
       formData,
-    }
+    };
   },
-})
+});
 </script>
 <style lang="scss" scoped>
 .login-account {

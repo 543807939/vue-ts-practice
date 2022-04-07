@@ -28,9 +28,9 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { Avatar, Iphone } from '@element-plus/icons-vue'
-import LoginAccount from './LoginAccount.vue'
+import { defineComponent } from "vue";
+import { Avatar, Iphone } from "@element-plus/icons-vue";
+import LoginAccount from "./LoginAccount.vue";
 export default defineComponent({
   components: {
     Avatar,
@@ -38,9 +38,9 @@ export default defineComponent({
     LoginAccount,
   },
   setup() {
-    return {}
+    return {};
   },
-})
+});
 </script>
 <style lang="scss" scoped>
 .login-box {
