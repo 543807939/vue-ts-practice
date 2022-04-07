@@ -11,7 +11,7 @@
             <span>账号登陆</span>
           </span>
         </template>
-        <login-account></login-account>
+        <login-account ref="loginAccountRef"></login-account>
       </el-tab-pane>
       <el-tab-pane>
         <template #label>
@@ -22,29 +22,62 @@
             <span>手机登录</span>
           </span>
         </template>
-        Route
+        <login-phone ref="loginPhoneRef"></login-phone>
       </el-tab-pane>
     </el-tabs>
+    <div class="control-tab">
+      <el-checkbox v-model="rememberPassword"
+        ><span style="color: #409eff">记住密码</span></el-checkbox
+      >
+      <el-link type="primary">忘记密码</el-link>
+    </div>
+    <el-button class="login" type="primary" @click="handleClick">
+      立即登录
+    </el-button>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import { Avatar, Iphone } from "@element-plus/icons-vue";
 import LoginAccount from "./LoginAccount.vue";
+import LoginPhone from "./LoginPhone.vue";
+
+console.log(LoginAccount, "value");
+
 export default defineComponent({
   components: {
     Avatar,
     Iphone,
     LoginAccount,
+    LoginPhone,
   },
   setup() {
-    return {};
+    const rememberPassword = ref(false);
+    const loginAccountRef = ref<InstanceType<typeof LoginAccount>>();
+    const handleClick = () => {
+      console.log(loginAccountRef.value, "value");
+
+      loginAccountRef.value?.loginAction();
+    };
+    return {
+      rememberPassword,
+      loginAccountRef,
+      handleClick,
+    };
   },
 });
 </script>
 <style lang="scss" scoped>
 .login-box {
   width: 320px;
+  .login {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+.control-tab {
+  display: flex;
+  justify-content: space-between;
 }
 .custom-tabs-label {
   & > span {

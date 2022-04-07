@@ -26,7 +26,7 @@ myRequest
     showLoading: false,
   })
   .then((res) => {
-    console.log(res, 27);
+    console.log(res);
   });
 
 const app = createApp(App);

@@ -8,6 +8,8 @@ import {
   ElTabs,
   ElTabPane,
   ElIcon,
+  ElCheckbox,
+  ElLink,
 } from "element-plus/lib/components";
 
 import "element-plus/dist/index.css";
@@ -21,6 +23,8 @@ const components = [
   ElTabs,
   ElTabPane,
   ElIcon,
+  ElCheckbox,
+  ElLink,
 ];
 
 export default function registerElement(app: App) {
