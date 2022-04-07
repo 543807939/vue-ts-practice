@@ -8,6 +8,12 @@ import myRequest from "./service";
 
 myRequest.request({
   url: "/home/multidata",
+  interceptors: {
+    myRequestInterceptor: (config) => {
+      console.log("单独定义");
+      return config;
+    },
+  },
 });
 const app = createApp(App);
 registerApp(app);
