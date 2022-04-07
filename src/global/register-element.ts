@@ -5,11 +5,23 @@ import {
   ElFormItem,
   ElInput,
   ElRadio,
+  ElTabs,
+  ElTabPane,
+  ElIcon,
 } from "element-plus/lib/components";
 
 import "element-plus/dist/index.css";
 
-const components = [ElButton, ElForm, ElFormItem, ElInput, ElRadio];
+const components = [
+  ElButton,
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElRadio,
+  ElTabs,
+  ElTabPane,
+  ElIcon,
+];
 
 export default function registerElement(app: App) {
   for (const component of components) {
