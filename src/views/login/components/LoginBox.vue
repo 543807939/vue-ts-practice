@@ -58,7 +58,7 @@ export default defineComponent({
       if (checkedTab.value === "account") {
         loginAccountRef.value?.loginAction(rememberPassword.value);
       } else if (checkedTab.value === "phone") {
-        loginPhoneRef.value?.loginAction()
+        loginPhoneRef.value?.loginAction();
       }
     };
     return {
