@@ -26,14 +26,14 @@
       </el-tab-pane>
     </el-tabs>
     <div class="control-tab">
-      <el-checkbox v-model="rememberPassword"
-        ><span style="color: #409eff">记住密码</span></el-checkbox
-      >
+      <el-checkbox v-model="rememberPassword">
+        <span style="color: #409eff">记住密码</span>
+      </el-checkbox>
       <el-link type="primary">忘记密码</el-link>
     </div>
-    <el-button class="login" type="primary" @click="handleClick">
-      立即登录
-    </el-button>
+    <el-button class="login" type="primary" @click="handleClick"
+      >立即登录</el-button
+    >
   </div>
 </template>
 <script lang="ts">
@@ -57,7 +57,7 @@ export default defineComponent({
     const handleClick = () => {
       console.log(loginAccountRef.value, "value");
 
-      loginAccountRef.value?.loginAction();
+      loginAccountRef.value?.loginAction(rememberPassword.value);
     };
     return {
       rememberPassword,
