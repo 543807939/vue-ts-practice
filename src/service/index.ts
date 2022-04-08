@@ -12,9 +12,6 @@ export default new MyRequest({
       console.log(err);
     },
     myResponseInterceptor: (res) => {
-      if (!res.data.success) {
-        console.log("响应失败");
-      }
       return res.data;
     },
     myResponseInterceptorCatch: (err) => {
