@@ -6,7 +6,6 @@ export default new MyRequest({
   timeout: TIME_OUT,
   interceptors: {
     myRequestInterceptor: (config) => {
-      console.log(config);
       return config;
     },
     myRequestInterceptorCatch: (err) => {

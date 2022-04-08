@@ -1,8 +1,8 @@
 <template>
   <div class="login-box">
     <h1 class="title">后台管理系统</h1>
-    <el-tabs type="border-card" stretch class="demo-tabs">
-      <el-tab-pane>
+    <el-tabs v-model="checkedTab" type="border-card" stretch class="demo-tabs">
+      <el-tab-pane name="account">
         <template #label>
           <span class="custom-tabs-label">
             <el-icon>
@@ -13,7 +13,7 @@
         </template>
         <login-account ref="loginAccountRef"></login-account>
       </el-tab-pane>
-      <el-tab-pane>
+      <el-tab-pane name="phone">
         <template #label>
           <span class="custom-tabs-label">
             <el-icon>
@@ -42,8 +42,6 @@ import { Avatar, Iphone } from "@element-plus/icons-vue";
 import LoginAccount from "./LoginAccount.vue";
 import LoginPhone from "./LoginPhone.vue";
 
-console.log(LoginAccount, "value");
-
 export default defineComponent({
   components: {
     Avatar,
@@ -52,16 +50,22 @@ export default defineComponent({
     LoginPhone,
   },
   setup() {
+    const checkedTab = ref("account");
     const rememberPassword = ref(false);
+    const loginPhoneRef = ref<InstanceType<typeof LoginPhone>>();
     const loginAccountRef = ref<InstanceType<typeof LoginAccount>>();
     const handleClick = () => {
-      console.log(loginAccountRef.value, "value");
-
-      loginAccountRef.value?.loginAction(rememberPassword.value);
+      if (checkedTab.value === "account") {
+        loginAccountRef.value?.loginAction(rememberPassword.value);
+      } else if (checkedTab.value === "phone") {
+        loginPhoneRef.value?.loginAction()
+      }
     };
     return {
       rememberPassword,
       loginAccountRef,
+      loginPhoneRef,
+      checkedTab,
       handleClick,
     };
   },

@@ -38,23 +38,20 @@ class MyRequest {
           });
         }
 
-        console.log("请求拦截器拦截成功");
         return config;
       },
       (err) => {
-        console.log("请求拦截器拦截失败");
         console.log(err);
       }
     );
     this.instance.interceptors.response.use(
       (res) => {
         this.loading.close();
-        console.log("响应拦截器拦截成功");
+
         return res;
       },
       (err) => {
         this.loading.close();
-        console.log("响应拦截器拦截失败");
       }
     );
   }

@@ -1,6 +1,7 @@
 <template>
   <div class="login-account">
     <el-form
+      ref="formRef"
       label-position="right"
       label-width="70px"
       :model="formData"
@@ -20,17 +21,30 @@
   </div>
 </template>
 <script lang="ts">
+import { ElForm } from "element-plus";
 import { defineComponent, ref } from "vue";
 import { rules } from "../config/account-config";
+
 export default defineComponent({
   setup() {
     const formData = ref({
       phone: "",
       verifyCode: "",
     });
+    const formRef = ref<InstanceType<typeof ElForm>>();
+    const loginAction = async () => {
+      try {
+        await formRef.value?.validate();
+        console.log("开始手机登录");
+      } catch (error) {
+        console.log(error);
+      }
+    };
     return {
       formData,
       rules,
+      formRef,
+      loginAction,
     };
   },
 });
