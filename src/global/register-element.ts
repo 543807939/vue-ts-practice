@@ -10,6 +10,14 @@ import {
   ElIcon,
   ElCheckbox,
   ElLink,
+  ElContainer,
+  ElMain,
+  ElAside,
+  ElHeader,
+  ElMenu,
+  ElMenuItem,
+  ElMenuItemGroup,
+  ElSubMenu,
 } from "element-plus/lib/components";
 
 import "element-plus/dist/index.css";
@@ -25,6 +33,14 @@ const components = [
   ElIcon,
   ElCheckbox,
   ElLink,
+  ElContainer,
+  ElMain,
+  ElAside,
+  ElHeader,
+  ElMenu,
+  ElMenuItem,
+  ElMenuItemGroup,
+  ElSubMenu,
 ];
 
 export default function registerElement(app: App) {

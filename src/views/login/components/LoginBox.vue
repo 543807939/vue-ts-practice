@@ -41,7 +41,7 @@ import { defineComponent, ref } from "vue";
 import { Avatar, Iphone } from "@element-plus/icons-vue";
 import LoginAccount from "./LoginAccount.vue";
 import LoginPhone from "./LoginPhone.vue";
-
+import localCache from "@/utils/cache";
 export default defineComponent({
   components: {
     Avatar,
@@ -51,7 +51,7 @@ export default defineComponent({
   },
   setup() {
     const checkedTab = ref("account");
-    const rememberPassword = ref(false);
+    const rememberPassword = ref(localCache.getCache("isRemember"));
     const loginPhoneRef = ref<InstanceType<typeof LoginPhone>>();
     const loginAccountRef = ref<InstanceType<typeof LoginAccount>>();
     const handleClick = () => {

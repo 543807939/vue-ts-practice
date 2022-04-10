@@ -36,9 +36,11 @@ export default defineComponent({
         await formRef.value?.validate();
         store.dispatch("loginModule/loginAccountAction", formData.value);
         if (isRemember) {
+          localCache.setCache("isRemember", isRemember);
           localCache.setCache("account", formData.value.name);
           localCache.setCache("password", formData.value.password);
         } else {
+          localCache.removeCache("isRemember");
           localCache.removeCache("account");
           localCache.removeCache("password");
         }
