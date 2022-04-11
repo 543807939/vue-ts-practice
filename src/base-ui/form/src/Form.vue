@@ -2,16 +2,21 @@
   <div class="my-form">
     <el-form label-width="100px">
       <el-row>
-        <template v-for="item,index in formItems" :key="index">
+        <template v-for="(item, index) in formItems" :key="index">
           <el-col :span="8">
             <el-form-item :label="item.label" :placeholder="item.placeholder">
-              <template v-if="item.type ==='input' || item.type ==='password'">
-                <el-input :placeholder="item.placeholder" :show-password="item.type === 'password'"></el-input>
+              <template
+                v-if="item.type === 'input' || item.type === 'password'"
+              >
+                <el-input
+                  :placeholder="item.placeholder"
+                  :show-password="item.type === 'password'"
+                ></el-input>
               </template>
               <template v-else-if="item.type === 'select'">
                 <el-select :placeholder="item.placeholder">
                   <el-option
-                    v-for="item,index in item.options"
+                    v-for="(item, index) in item.options"
                     :key="index"
                     :label="item.label"
                     :value="item.value"
@@ -19,7 +24,9 @@
                 </el-select>
               </template>
               <template v-else-if="item.type === 'datepicker'">
-                <el-date-picker :placeholder="item.placeholder"></el-date-picker>
+                <el-date-picker
+                  :placeholder="item.placeholder"
+                ></el-date-picker>
               </template>
             </el-form-item>
           </el-col>
@@ -29,21 +36,20 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import { IFormItem } from '../types'
+import { defineComponent, PropType } from "vue";
+import { IFormItem } from "../types";
 export default defineComponent({
   props: {
     formItems: {
       type: Array as PropType<IFormItem[]>,
       default: () => {
-        return []
+        return [];
       },
     },
   },
   setup() {
-    return {}
+    return {};
   },
-})
+});
 </script>
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
