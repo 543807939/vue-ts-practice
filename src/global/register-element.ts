@@ -29,6 +29,8 @@ import {
   ElSelect,
   ElDatePicker,
   ElOption,
+  ElBreadcrumb,
+  ElBreadcrumbItem,
 } from "element-plus/lib/components";
 
 import "element-plus/dist/index.css";
@@ -63,6 +65,8 @@ const components = [
   ElSelect,
   ElDatePicker,
   ElOption,
+  ElBreadcrumb,
+  ElBreadcrumbItem,
 ];
 
 export default function registerElement(app: App) {

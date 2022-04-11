@@ -8,8 +8,7 @@
       <component :is="icon"></component>
     </el-icon>
     <div class="content">
-      <span>面包屑</span>
-
+      <nav-breadcrumb :breadcrumb="breadcrumb"></nav-breadcrumb>
       <section class="right-content">
         <el-badge>
           <el-button circle :icon="Message"></el-button>
@@ -26,7 +25,9 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, watch } from "vue";
+import { defineComponent, ref, watch, computed } from "vue";
+import { useStore } from "vuex";
+import { useRoute } from "vue-router";
 import {
   Expand,
   Fold,
@@ -35,11 +36,14 @@ import {
   Bell,
 } from "@element-plus/icons-vue";
 import UserInfo from "./UserInfo.vue";
+import NavBreadcrumb, { IBreadcrumb } from "@/base-ui/breadcrumb";
+import { pathMapBreadcrumb } from "@/utils/map-menus";
 export default defineComponent({
   components: {
     UserInfo,
     Expand,
     Fold,
+    NavBreadcrumb,
   },
   emits: ["toggleMenuStatus"],
   setup(props, { emit }) {
@@ -62,8 +66,17 @@ export default defineComponent({
     watch(icon, (newValue) => {
       emit("toggleMenuStatus", newValue);
     });
+    const store = useStore();
+    const route = useRoute();
+
+    const breadcrumb = computed(() => {
+      const userMenus = store.state.loginModule.userMenus;
+      const path = route.path;
+      return pathMapBreadcrumb(userMenus, path);
+    });
     return {
       icon,
+      breadcrumb,
       toggleMenu,
       Message,
       ChatDotRound,

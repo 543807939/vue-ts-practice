@@ -1,20 +1,31 @@
 <template>
   <div class="my-form">
-    <el-form label-width="100px">
+    <el-form :label-width="labelWidth">
       <el-row>
         <template v-for="(item, index) in formItems" :key="index">
-          <el-col :span="8">
-            <el-form-item :label="item.label" :placeholder="item.placeholder">
+          <el-col
+            :style="colStyle"
+            :xs="{ span: 24 }"
+            :md="{ span: 12 }"
+            :lg="{ span: 8 }"
+            :xl="{ span: 6 }"
+          >
+            <el-form-item :label="item.label" :rules="item.rules">
               <template
                 v-if="item.type === 'input' || item.type === 'password'"
               >
                 <el-input
+                  style="width: 100%"
                   :placeholder="item.placeholder"
                   :show-password="item.type === 'password'"
                 ></el-input>
               </template>
               <template v-else-if="item.type === 'select'">
-                <el-select :placeholder="item.placeholder">
+                <el-select
+                  style="width: 100%"
+                  :placeholder="item.placeholder"
+                  v-bind="item.otherOptions"
+                >
                   <el-option
                     v-for="(item, index) in item.options"
                     :key="index"
@@ -25,7 +36,8 @@
               </template>
               <template v-else-if="item.type === 'datepicker'">
                 <el-date-picker
-                  :placeholder="item.placeholder"
+                  style="width: 100%"
+                  v-bind="item.otherOptions"
                 ></el-date-picker>
               </template>
             </el-form-item>
@@ -46,10 +58,28 @@ export default defineComponent({
         return [];
       },
     },
+    labelWidth: {
+      type: [String, Number],
+      default() {
+        return 100;
+      },
+    },
+    colStyle: {
+      type: Object,
+      default() {
+        return {
+          padding: "10px 40px",
+        };
+      },
+    },
   },
   setup() {
     return {};
   },
 });
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.my-form {
+  padding-top: 18px;
+}
+</style>

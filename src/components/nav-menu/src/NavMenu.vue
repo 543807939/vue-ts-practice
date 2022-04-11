@@ -6,7 +6,7 @@
     </div>
     <el-menu
       :collapse="collapse"
-      default-active="2"
+      :default-active="defaultActive"
       background-color="#485460"
       text-color="#fff"
       unique-opened
@@ -32,7 +32,7 @@
           <el-menu-item
             v-for="childItem in item.children"
             :index="childItem.id + ''"
-            @click="$router.push(childItem.url)"
+            @click="handleItemClick(childItem)"
             :key="childItem.id"
           >
             <span>{{ childItem.name }}</span>
@@ -46,15 +46,18 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import { useStore } from "vuex";
 import { IStore } from "@/store/types";
+import { useRouter, useRoute } from "vue-router";
 import {
   Monitor,
   Setting,
   Goods,
   ChatLineRound,
 } from "@element-plus/icons-vue";
+import { pathMapToMenu } from "@/utils/map-menus";
+
 export default defineComponent({
   components: { Monitor, Setting, Goods, ChatLineRound },
   props: {
@@ -67,11 +70,26 @@ export default defineComponent({
   },
   setup() {
     const store = useStore<IStore>();
+    // 获取菜单
     const menuList = store.state.loginModule.userMenus;
     console.log(menuList);
 
+    const defaultActive = ref("2");
+    const router = useRouter();
+    // 处理点击事件
+    const handleItemClick = (item: any) => {
+      router.push(item.url);
+    };
+    const route = useRoute();
+    const res = pathMapToMenu(menuList, route.path);
+    console.log(res);
+
+    defaultActive.value = res.id + "";
+
     return {
       menuList,
+      defaultActive,
+      handleItemClick,
     };
   },
 });
