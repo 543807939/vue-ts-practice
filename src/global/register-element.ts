@@ -20,7 +20,7 @@ import {
   ElSubMenu,
   ElDropdown,
   ElDropdownItem,
-  ElDropdownMenu
+  ElDropdownMenu,
 } from "element-plus/lib/components";
 
 import "element-plus/dist/index.css";
@@ -46,7 +46,7 @@ const components = [
   ElSubMenu,
   ElDropdown,
   ElDropdownItem,
-  ElDropdownMenu
+  ElDropdownMenu,
 ];
 
 export default function registerElement(app: App) {
