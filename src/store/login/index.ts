@@ -34,7 +34,7 @@ const loginModule: Module<ILoginState, IRootState> = {
     changeUserMenus(state, payload: any[]) {
       state.userMenus = payload;
       const res = mapMenusToRoutes(payload);
-      console.log(res);
+
       res.forEach((item) => {
         router.addRoute("main", item);
       });

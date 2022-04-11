@@ -9,45 +9,47 @@
         <nav-header @toggleMenuStatus="toggleMenuStatus"></nav-header>
       </el-header>
       <el-main class="page-container">
-        <router-view></router-view>
+        <div class="page-detail">
+          <router-view></router-view>
+        </div>
       </el-main>
     </el-container>
   </el-container>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
-import NavMenu from "@/components/nav-menu";
-import NavHeader from "@/components/nav-header";
+import { defineComponent, ref } from 'vue'
+import NavMenu from '@/components/nav-menu'
+import NavHeader from '@/components/nav-header'
 export default defineComponent({
   components: {
     NavMenu,
     NavHeader,
   },
   setup() {
-    const isCollapse = ref(false);
+    const isCollapse = ref(false)
     const toggleMenuStatus = (value: string) => {
       switch (value) {
-        case "expand": {
-          isCollapse.value = true;
-          break;
+        case 'expand': {
+          isCollapse.value = true
+          break
         }
-        case "fold": {
-          isCollapse.value = false;
-          break;
+        case 'fold': {
+          isCollapse.value = false
+          break
         }
         default: {
-          break;
+          break
         }
       }
-      console.log(isCollapse.value);
-    };
+      console.log(isCollapse.value)
+    }
     return {
       isCollapse,
       toggleMenuStatus,
-    };
+    }
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>
@@ -64,6 +66,10 @@ export default defineComponent({
   .page-container {
     min-width: 400px;
     height: calc(100% - 48px);
+    .page-detail {
+      border-radius: 8px;
+      background-color: #fff;
+    }
   }
   .el-main {
     background-color: #f0f2f5;

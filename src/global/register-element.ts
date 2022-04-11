@@ -21,6 +21,14 @@ import {
   ElDropdown,
   ElDropdownItem,
   ElDropdownMenu,
+  ElDivider,
+  ElAvatar,
+  ElBadge,
+  ElRow,
+  ElCol,
+  ElSelect,
+  ElDatePicker,
+  ElOption,
 } from "element-plus/lib/components";
 
 import "element-plus/dist/index.css";
@@ -47,6 +55,14 @@ const components = [
   ElDropdown,
   ElDropdownItem,
   ElDropdownMenu,
+  ElDivider,
+  ElAvatar,
+  ElBadge,
+  ElRow,
+  ElCol,
+  ElSelect,
+  ElDatePicker,
+  ElOption,
 ];
 
 export default function registerElement(app: App) {

@@ -22,7 +22,7 @@ export default function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
   const allRoute: RouteRecordRaw[] = [];
   arr.keys().forEach((key) => {
     const res = require("../router/main" + key.split(".")[1]);
-    console.log(res);
+
     Object.keys(res).forEach((item) => {
       allRoute.push(res[item]);
     });
