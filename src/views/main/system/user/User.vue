@@ -1,28 +1,22 @@
 <template>
   <div class="user">
-    <my-form v-bind="formConfig" :formData="formData"></my-form>
+    <page-search :formConfig="formConfig"></page-search>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
-import MyForm from "@/base-ui/form";
-import formConfig from "./config/search.config";
+import { defineComponent } from 'vue'
+import PageSearch from '@/components/page-search'
+import formConfig from './config/search.config'
 export default defineComponent({
   components: {
-    MyForm,
+    PageSearch,
   },
   setup() {
-    const formData = reactive({
-      username: "",
-      password: "",
-      sport: "",
-      createDate: "",
-    });
     return {
       formConfig,
-      formData,
-    };
+    }
   },
-});
+})
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>
