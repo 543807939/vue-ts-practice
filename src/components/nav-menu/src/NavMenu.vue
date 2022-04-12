@@ -72,7 +72,6 @@ export default defineComponent({
     const store = useStore<IStore>();
     // 获取菜单
     const menuList = store.state.loginModule.userMenus;
-    console.log(menuList);
 
     const defaultActive = ref("2");
     const router = useRouter();
@@ -82,7 +81,6 @@ export default defineComponent({
     };
     const route = useRoute();
     const res = pathMapToMenu(menuList, route.path);
-    console.log(res);
 
     defaultActive.value = res.id + "";
 
