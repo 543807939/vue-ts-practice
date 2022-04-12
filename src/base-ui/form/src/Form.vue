@@ -18,6 +18,7 @@
                   style="width: 100%"
                   :placeholder="item.placeholder"
                   :show-password="item.type === 'password'"
+                  v-model="formData[`${item.field}`]"
                 ></el-input>
               </template>
               <template v-else-if="item.type === 'select'">
@@ -25,6 +26,7 @@
                   style="width: 100%"
                   :placeholder="item.placeholder"
                   v-bind="item.otherOptions"
+                  v-model="formData[`${item.field}`]"
                 >
                   <el-option
                     v-for="(item, index) in item.options"
@@ -36,6 +38,7 @@
               </template>
               <template v-else-if="item.type === 'datepicker'">
                 <el-date-picker
+                  v-model="formData[`${item.field}`]"
                   style="width: 100%"
                   v-bind="item.otherOptions"
                 ></el-date-picker>
@@ -52,6 +55,10 @@ import { defineComponent, PropType } from "vue";
 import { IFormItem } from "../types";
 export default defineComponent({
   props: {
+    formData: {
+      type: Object,
+      required: true,
+    },
     formItems: {
       type: Array as PropType<IFormItem[]>,
       default: () => {
