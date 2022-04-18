@@ -1,6 +1,6 @@
 import MyRequest from "../index";
-import { IAccount, IDataType, ILoginResult } from "./type";
-
+import { IAccount, ILoginResult } from "./type";
+import { IDataType } from "../types";
 enum LoginApi {
   AccountLogin = "/login",
   GetUserInfoByID = "/users", // 用法 users/id

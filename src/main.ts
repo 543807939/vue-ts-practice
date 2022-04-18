@@ -8,6 +8,8 @@ import "@/assets/css/index.scss";
 import { setupStore } from "@/store";
 
 const app = createApp(App);
+
 registerApp(app);
+
 setupStore();
 app.use(store).use(router).mount("#app");

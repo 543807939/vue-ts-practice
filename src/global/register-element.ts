@@ -31,6 +31,9 @@ import {
   ElOption,
   ElBreadcrumb,
   ElBreadcrumbItem,
+  ElTable,
+  ElTableColumn,
+  ElPagination,
 } from "element-plus/lib/components";
 
 import "element-plus/dist/index.css";
@@ -67,6 +70,9 @@ const components = [
   ElOption,
   ElBreadcrumb,
   ElBreadcrumbItem,
+  ElTable,
+  ElTableColumn,
+  ElPagination,
 ];
 
 export default function registerElement(app: App) {
