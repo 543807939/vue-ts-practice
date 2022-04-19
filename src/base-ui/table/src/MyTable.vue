@@ -29,7 +29,8 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { ElForm } from 'element-plus/lib/components'
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
   props: {
@@ -67,6 +68,7 @@ export default defineComponent({
       // emit("handleSelectionChange", value);
       console.log(value)
     }
+
     return {
       handleSelectionChange,
     }

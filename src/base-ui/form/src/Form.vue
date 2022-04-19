@@ -1,7 +1,7 @@
 <template>
   <div class="my-form">
     <slot name="header"></slot>
-    <el-form :label-width="labelWidth">
+    <el-form :label-width="labelWidth" ref="myForm">
       <el-row>
         <template v-for="(item, index) in formItems" :key="index">
           <el-col
@@ -51,6 +51,7 @@
   </div>
 </template>
 <script lang="ts">
+import { ElForm } from 'element-plus'
 import { defineComponent, PropType, ref, watch } from 'vue'
 import { IFormItem } from '../types'
 export default defineComponent({
@@ -92,8 +93,13 @@ export default defineComponent({
       },
       { deep: true }
     )
+    const handleReset = () => {
+      const myForm = ref<InstanceType<typeof ElForm>>()
+      myForm.value?.resetFields()
+    }
     return {
       formData,
+      handleReset,
     }
   },
 })

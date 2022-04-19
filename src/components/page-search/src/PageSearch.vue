@@ -1,12 +1,12 @@
 <template>
-  <my-form v-bind="formConfig" v-model="formData">
+  <my-form v-bind="formConfig" v-model="formData" ref="myForm">
     <template #header>
       <h2 class="header">检索</h2>
     </template>
     <template #footer>
       <div class="footer">
         <el-button type="primary" :icon="Search">搜索</el-button>
-        <el-button :icon="Refresh">重置</el-button>
+        <el-button :icon="Refresh" @click="handleReset">重置</el-button>
       </div>
     </template>
   </my-form>
@@ -23,13 +23,20 @@ export default defineComponent({
       required: true,
     },
   },
-  setup() {
-    const formData = ref({
-      username: '',
-      password: '',
-      sport: '',
-      createDate: '',
+  setup(props) {
+    // const formItems = props.formConfig.formItems
+    const formDataOrigin: any = {}
+    props.formConfig.formItems.forEach((item) => {
+      formDataOrigin[item.field] = ''
     })
+
+    const formData = ref(formDataOrigin)
+    // const formData = ref({
+    //   username: '',
+    //   password: '',
+    //   sport: '',
+    //   createDate: '',
+    // })
     watch(
       formData,
       (newValue) => {
@@ -39,7 +46,14 @@ export default defineComponent({
         deep: true,
       }
     )
-    return { formData, Refresh, Search }
+    const myForm = ref(null)
+
+    const handleReset = () => {
+      console.log(myForm)
+
+      console.log((myForm as any).handleReset)
+    }
+    return { formData, Refresh, Search, myForm, handleReset }
   },
   components: {
     MyForm,
