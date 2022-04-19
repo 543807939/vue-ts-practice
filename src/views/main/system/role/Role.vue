@@ -1,13 +1,36 @@
 <template>
-  <div>"角色管理"</div>
+  <div class="user">
+    <page-search :formConfig="formConfig"></page-search>
+    <div class="content">
+      <page-content :pageName="pageName" :contentTableConfig="contentTableConfig"></page-content>
+    </div>
+  </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
+import PageSearch from '@/components/page-search'
+import { contentTableConfig } from './config/content.config'
+import formConfig from './config/search.config'
+import PageContent from '@/components/page-content'
 
 export default defineComponent({
-  setup() {
-    return {};
+  components: {
+    PageSearch,
+    PageContent,
   },
-});
+  setup() {
+    const pageName = 'role'
+    return {
+      formConfig,
+      contentTableConfig,
+      pageName,
+    }
+  },
+})
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.content {
+  padding: 20px;
+  border-top: 20px solid #eee;
+}
+</style>

@@ -1,7 +1,7 @@
 <template>
   <my-form v-bind="formConfig" v-model="formData">
     <template #header>
-      <h2>检索</h2>
+      <h2 class="header">检索</h2>
     </template>
     <template #footer>
       <div class="footer">
@@ -47,6 +47,9 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
+.header {
+  text-align: center;
+}
 .footer {
   display: flex;
   justify-content: center;

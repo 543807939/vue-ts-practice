@@ -6,28 +6,19 @@
         <slot name="headerHandler"></slot>
       </slot>
     </div>
-    <el-table
-      :data="userList"
-      @selection-change="handleSelectionChange"
-      border
-      stripe
-    >
-      <el-table-column
-        type="selection"
-        v-if="showSelectionColume"
-      ></el-table-column>
+    <el-table :data="userList" @selection-change="handleSelectionChange" border stripe>
+      <el-table-column type="selection" v-if="showSelectionColume"></el-table-column>
       <el-table-column
         type="index"
         v-if="showIndexColume"
         align="center"
         label="序号"
+        min-width="200"
       ></el-table-column>
       <template v-for="item in propList" :key="item.cellphone">
         <el-table-column v-bind="item" align="center">
           <template #default="scope">
-            <slot :name="item.prop" :row="scope.row">
-              {{ scope.row[item.prop] }}
-            </slot>
+            <slot :name="item.prop" :row="scope.row">{{ scope.row[item.prop] }}</slot>
           </template>
         </el-table-column>
       </template>
@@ -38,7 +29,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   props: {
@@ -48,39 +39,39 @@ export default defineComponent({
     showSelectionColume: {
       type: Boolean,
       default() {
-        return false;
+        return false
       },
     },
     showIndexColume: {
       type: Boolean,
       default() {
-        return false;
+        return false
       },
     },
     userList: {
       type: Array,
       default() {
-        return [];
+        return []
       },
     },
     propList: {
       type: Array,
       default() {
-        return [];
+        return []
       },
     },
   },
-  emits: ["handleSelectionChange"],
+  emits: ['handleSelectionChange'],
   setup(props, { emit }) {
     const handleSelectionChange = (value: any) => {
       // emit("handleSelectionChange", value);
-      console.log(value);
-    };
+      console.log(value)
+    }
     return {
       handleSelectionChange,
-    };
+    }
   },
-});
+})
 </script>
 <style lang="scss" scoped>
 .header {

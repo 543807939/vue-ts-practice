@@ -2,19 +2,16 @@
   <div class="user">
     <page-search :formConfig="formConfig"></page-search>
     <div class="content">
-      <page-content
-        :pageName="pageName"
-        :contentTableConfig="contentTableConfig"
-      ></page-content>
+      <page-content :pageName="pageName" :contentTableConfig="contentTableConfig"></page-content>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
-import PageSearch from "@/components/page-search";
-import { contentTableConfig } from "./config/content.config";
-import formConfig from "./config/search.config";
-import PageContent from "@/components/page-content";
+import { defineComponent } from 'vue'
+import PageSearch from '@/components/page-search'
+import { contentTableConfig } from './config/content.config'
+import formConfig from './config/search.config'
+import PageContent from '@/components/page-content'
 
 export default defineComponent({
   components: {
@@ -22,14 +19,18 @@ export default defineComponent({
     PageContent,
   },
   setup() {
-    const pageName = "users";
+    const pageName = 'user'
     return {
       formConfig,
       contentTableConfig,
       pageName,
-    };
+    }
   },
-});
+})
 </script>
 <style lang="scss" scoped>
+.content {
+  padding: 20px;
+  border-top: 20px solid #eee;
+}
 </style>
