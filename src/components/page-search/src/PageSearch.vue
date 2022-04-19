@@ -12,10 +12,10 @@
   </my-form>
 </template>
 <script lang="ts">
-import { defineComponent, ref, watch, PropType } from 'vue'
-import MyForm from '@/base-ui/form'
-import { Refresh, Search } from '@element-plus/icons-vue'
-import { IForm } from '@/base-ui/form/types'
+import { defineComponent, ref, watch, PropType } from "vue";
+import MyForm from "@/base-ui/form";
+import { Refresh, Search } from "@element-plus/icons-vue";
+import { IForm } from "@/base-ui/form/types";
 export default defineComponent({
   props: {
     formConfig: {
@@ -25,40 +25,35 @@ export default defineComponent({
   },
   setup(props) {
     // const formItems = props.formConfig.formItems
-    const formDataOrigin: any = {}
+    const formDataOrigin: any = {};
     props.formConfig.formItems.forEach((item) => {
-      formDataOrigin[item.field] = ''
-    })
+      formDataOrigin[item.field] = "";
+    });
 
-    const formData = ref(formDataOrigin)
-    // const formData = ref({
-    //   username: '',
-    //   password: '',
-    //   sport: '',
-    //   createDate: '',
-    // })
+    let formData = ref(formDataOrigin);
+
     watch(
       formData,
       (newValue) => {
-        console.log(newValue)
+        console.log(newValue);
       },
       {
         deep: true,
       }
-    )
-    const myForm = ref(null)
+    );
+    const myForm = ref(null);
 
     const handleReset = () => {
-      console.log(myForm)
+      console.log(formDataOrigin);
 
-      console.log((myForm as any).handleReset)
-    }
-    return { formData, Refresh, Search, myForm, handleReset }
+      formData.value = ref(formDataOrigin);
+    };
+    return { formData, Refresh, Search, myForm, handleReset };
   },
   components: {
     MyForm,
   },
-})
+});
 </script>
 <style lang="scss" scoped>
 .header {
