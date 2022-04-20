@@ -64,14 +64,17 @@ const props = defineProps({
   },
 })
 const store = useStore()
-store.dispatch('systemModule/getPageList', {
-  // url: "/users/list",
-  pageName: props.pageName,
-  queryInfo: {
-    offset: 0,
-    size: 10,
-  },
-})
+const getPageData = () => {
+  store.dispatch('systemModule/getPageList', {
+    // url: "/users/list",
+    pageName: props.pageName,
+    queryInfo: {
+      offset: 0,
+      size: 10,
+    },
+  })
+}
+getPageData()
 const userList = computed(
   () => store.state.systemModule[`${props.pageName}List`]
 )

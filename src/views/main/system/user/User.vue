@@ -1,6 +1,10 @@
 <template>
   <div class="user">
-    <page-search :formConfig="formConfig"></page-search>
+    <page-search
+      :formConfig="formConfig"
+      @handleResetClick="handleResetClick"
+      @handleSearchClick="handleSearchClick"
+    ></page-search>
     <div class="content">
       <page-content :pageName="pageName" :contentTableConfig="contentTableConfig"></page-content>
     </div>
@@ -20,10 +24,18 @@ export default defineComponent({
   },
   setup() {
     const pageName = 'user'
+    const handleResetClick = () => {
+      console.log('重置')
+    }
+    const handleSearchClick = (formData: any) => {
+      console.log('查询', formData)
+    }
     return {
       formConfig,
       contentTableConfig,
       pageName,
+      handleResetClick,
+      handleSearchClick,
     }
   },
 })

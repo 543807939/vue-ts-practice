@@ -86,14 +86,7 @@ export default defineComponent({
     console.log(props.modelValue)
 
     const formData = ref({ ...props.modelValue })
-    console.log(formData, '我是formData')
 
-    watch(
-      () => props.modelValue,
-      (value) => {
-        formData.value = { ...value }
-      }
-    )
     watch(
       formData,
       (newValue) => {
