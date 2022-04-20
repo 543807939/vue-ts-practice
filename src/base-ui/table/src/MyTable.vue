@@ -6,8 +6,16 @@
         <slot name="headerHandler"></slot>
       </slot>
     </div>
-    <el-table :data="userList" @selection-change="handleSelectionChange" border stripe>
-      <el-table-column type="selection" v-if="showSelectionColume"></el-table-column>
+    <el-table
+      :data="userList"
+      @selection-change="handleSelectionChange"
+      border
+      stripe
+    >
+      <el-table-column
+        type="selection"
+        v-if="showSelectionColume"
+      ></el-table-column>
       <el-table-column
         type="index"
         v-if="showIndexColume"
@@ -18,19 +26,31 @@
       <template v-for="item in propList" :key="item.cellphone">
         <el-table-column v-bind="item" align="center">
           <template #default="scope">
-            <slot :name="item.prop" :row="scope.row">{{ scope.row[item.prop] }}</slot>
+            <slot :name="item.prop" :row="scope.row">{{
+              scope.row[item.prop]
+            }}</slot>
           </template>
         </el-table-column>
       </template>
     </el-table>
     <div class="footer">
-      <slot name="footer"></slot>
+      <slot name="footer">
+        <el-pagination
+          :currentPage="page.currentPage"
+          :page-size="page.pageSize"
+          :page-sizes="[10, 20, 30, 40]"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="dataCount"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+        />
+      </slot>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { ElForm } from 'element-plus/lib/components'
-import { defineComponent, ref } from 'vue'
+import { ElForm } from "element-plus/lib/components";
+import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   props: {
@@ -40,40 +60,70 @@ export default defineComponent({
     showSelectionColume: {
       type: Boolean,
       default() {
-        return false
+        return false;
       },
     },
     showIndexColume: {
       type: Boolean,
       default() {
-        return false
+        return false;
       },
     },
     userList: {
       type: Array,
       default() {
-        return []
+        return [];
       },
     },
     propList: {
       type: Array,
       default() {
-        return []
+        return [];
+      },
+    },
+    dataCount: {
+      type: [Number, String],
+      default() {
+        return 0;
+      },
+    },
+    page: {
+      type: Object,
+      default() {
+        return {
+          pageSize: 10,
+          currentPage: 1,
+        };
       },
     },
   },
-  emits: ['handleSelectionChange'],
-  setup(props, { emit }) {
+  emits: ["handleSelectionChange", "update:page"],
+  setup(props: any, { emit }) {
     const handleSelectionChange = (value: any) => {
       // emit("handleSelectionChange", value);
-      console.log(value)
-    }
-
+      console.log(value);
+    };
+    const handleSizeChange = (pageSize: number) => {
+      console.log(pageSize);
+      emit("update:page", {
+        ...props.page,
+        pageSize,
+      });
+    };
+    const handleCurrentChange = (currentPage: number) => {
+      console.log(currentPage);
+      emit("update:page", {
+        ...props.page,
+        currentPage,
+      });
+    };
     return {
       handleSelectionChange,
-    }
+      handleSizeChange,
+      handleCurrentChange,
+    };
   },
-})
+});
 </script>
 <style lang="scss" scoped>
 .header {
@@ -85,5 +135,10 @@ export default defineComponent({
     font-size: 20px;
     font-weight: 600;
   }
+}
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
 }
 </style>

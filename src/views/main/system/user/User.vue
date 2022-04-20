@@ -6,39 +6,40 @@
       @handleSearchClick="handleSearchClick"
     ></page-search>
     <div class="content">
-      <page-content :pageName="pageName" :contentTableConfig="contentTableConfig"></page-content>
+      <page-content
+        ref="pageContentRef"
+        :pageName="pageName"
+        :contentTableConfig="contentTableConfig"
+      ></page-content>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
-import PageSearch from '@/components/page-search'
-import { contentTableConfig } from './config/content.config'
-import formConfig from './config/search.config'
-import PageContent from '@/components/page-content'
-
+import { defineComponent, ref } from "vue";
+import PageSearch from "@/components/page-search";
+import { contentTableConfig } from "./config/content.config";
+import formConfig from "./config/search.config";
+import PageContent from "@/components/page-content";
+import { userPageSearch } from "@/hooks/user-page-search";
 export default defineComponent({
   components: {
     PageSearch,
     PageContent,
   },
   setup() {
-    const pageName = 'user'
-    const handleResetClick = () => {
-      console.log('重置')
-    }
-    const handleSearchClick = (formData: any) => {
-      console.log('查询', formData)
-    }
+    const pageName = "user";
+    const { handleResetClick, pageContentRef, handleSearchClick } =
+      userPageSearch();
     return {
       formConfig,
       contentTableConfig,
       pageName,
+      pageContentRef,
       handleResetClick,
       handleSearchClick,
-    }
+    };
   },
-})
+});
 </script>
 <style lang="scss" scoped>
 .content {

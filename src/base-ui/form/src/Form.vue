@@ -12,7 +12,9 @@
             :xl="{ span: 6 }"
           >
             <el-form-item :label="item.label" :rules="item.rules">
-              <template v-if="item.type === 'input' || item.type === 'password'">
+              <template
+                v-if="item.type === 'input' || item.type === 'password'"
+              >
                 <el-input
                   style="width: 100%"
                   :placeholder="item.placeholder"
@@ -51,9 +53,9 @@
   </div>
 </template>
 <script lang="ts">
-import { ElForm } from 'element-plus'
-import { defineComponent, PropType, ref, watch } from 'vue'
-import { IFormItem } from '../types'
+import { ElForm } from "element-plus";
+import { defineComponent, PropType, ref, watch } from "vue";
+import { IFormItem } from "../types";
 export default defineComponent({
   props: {
     modelValue: {
@@ -63,43 +65,41 @@ export default defineComponent({
     formItems: {
       type: Array as PropType<IFormItem[]>,
       default: () => {
-        return []
+        return [];
       },
     },
     labelWidth: {
       type: [String, Number],
       default() {
-        return 100
+        return 100;
       },
     },
     colStyle: {
       type: Object,
       default() {
         return {
-          padding: '10px 40px',
-        }
+          padding: "10px 40px",
+        };
       },
     },
   },
-  emits: ['update:modelValue'],
+  emits: ["update:modelValue"],
   setup(props: any, { emit }) {
-    console.log(props.modelValue)
-
-    const formData = ref({ ...props.modelValue })
+    const formData = ref({ ...props.modelValue });
 
     watch(
       formData,
       (newValue) => {
-        emit('update:modelValue', newValue)
+        emit("update:modelValue", newValue);
       },
       { deep: true }
-    )
+    );
 
     return {
       formData,
-    }
+    };
   },
-})
+});
 </script>
 <style lang="scss" scoped>
 .my-form {

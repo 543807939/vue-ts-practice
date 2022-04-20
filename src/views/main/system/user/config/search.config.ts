@@ -2,7 +2,7 @@ import { IForm } from "@/base-ui/form/types";
 const formConfig: IForm = {
   formItems: [
     {
-      field: "username",
+      field: "name",
       type: "input",
       label: "用户名",
       placeholder: "请输入用户名",
