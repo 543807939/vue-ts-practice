@@ -47,7 +47,7 @@ const systemModule: Module<ISystemState, IRootState> = {
       }
       const pageResult = await getPageListData(pageUrl, payload.queryInfo);
       console.log(pageResult);
-      const { list, totalCount } = pageResult.data;
+      const { list, totalCount } = pageResult?.data;
       context.commit(
         `change${
           (pageName as string).charAt(0).toUpperCase() +
