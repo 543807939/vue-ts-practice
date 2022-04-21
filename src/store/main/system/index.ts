@@ -10,6 +10,8 @@ const systemModule: Module<ISystemState, IRootState> = {
     userCount: 0,
     roleList: [],
     roleCount: 0,
+    goodsList: [],
+    goodsCount: 0,
   },
   getters: {},
   mutations: {
@@ -25,6 +27,12 @@ const systemModule: Module<ISystemState, IRootState> = {
     changeRoleCount(state, totalCount: number) {
       state.roleCount = totalCount;
     },
+    changeGoodsList(state, goodsList: IUserInfo[]) {
+      state.goodsList = goodsList;
+    },
+    changeGoodsCount(state, goodsCount: number) {
+      state.goodsCount = goodsCount;
+    },
   },
   actions: {
     // 获取信息
@@ -38,6 +46,10 @@ const systemModule: Module<ISystemState, IRootState> = {
         }
         case "role": {
           pageUrl = "role/list";
+          break;
+        }
+        case "goods": {
+          pageUrl = "goods/list";
           break;
         }
 

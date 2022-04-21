@@ -1,12 +1,30 @@
 <template>
-  <div>"商品信息"</div>
+  <div>
+    <page-search :formConfig="formConfig"></page-search>
+    <PageConent
+      :pageName="pageName"
+      :contentTableConfig="contentTableConfig"
+    ></PageConent>
+  </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
-
+import { defineComponent, ref } from "vue";
+import PageSearch from "@/components/page-search";
+import PageConent from "@/components/page-content";
+import {contentTableConfig} from "./config/content.config";
+import formConfig from "./config/search.config";
 export default defineComponent({
+  components: {
+    PageSearch,
+    PageConent,
+  },
   setup() {
-    return {};
+    const pageName = ref("goods");
+    return {
+      pageName,
+      contentTableConfig,
+      formConfig,
+    };
   },
 });
 </script>

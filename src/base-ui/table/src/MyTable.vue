@@ -24,7 +24,7 @@
         min-width="200"
       ></el-table-column>
       <template v-for="item in propList" :key="item.cellphone">
-        <el-table-column v-bind="item" align="center">
+        <el-table-column show-overflow-tooltip v-bind="item" align="center">
           <template #default="scope">
             <slot :name="item.prop" :row="scope.row">{{
               scope.row[item.prop]

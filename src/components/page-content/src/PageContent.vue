@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <my-table
     v-bind="contentTableConfig"
     v-model:page="pageInfo"
@@ -12,6 +12,15 @@
       </el-button>
     </template>
     <!-- table插槽 -->
+    <template #imgUrl="scope">
+      <el-image
+        style="width: 60px; height: 60px"
+        :src="scope.row.imgUrl"
+        fit="fill"
+        preview-teleported
+        :preview-src-list="[scope.row.imgUrl]"
+      />
+    </template>
     <template #enable="scope">
       <el-button
         plain
@@ -72,10 +81,12 @@ export default defineComponent({
   },
   setup(props: any) {
     const store = useStore();
+    //  定义分页
     const pageInfo = ref({
       pageSize: 10,
       currentPage: 1,
     });
+    // 发送请求
     const getPageData = (queryInfo?: any) => {
       const query: any = {};
       for (const key in queryInfo) {
@@ -105,12 +116,16 @@ export default defineComponent({
       { deep: true }
     );
     getPageData();
+
+    // 从vuex获取数据
     const userList = computed(
       () => store.state.systemModule[`${props.pageName}List`]
     );
     const totalNum = computed(
       () => store.state.systemModule[`${props.pageName}Count`]
     );
+
+    // 获取动态插槽名称
 
     return {
       getPageData,
