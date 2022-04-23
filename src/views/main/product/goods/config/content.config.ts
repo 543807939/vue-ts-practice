@@ -15,7 +15,6 @@ export const contentTableConfig = {
     {
       prop: "newPrice",
       label: "现价",
-      "min-width": "250",
     },
     {
       prop: "imgUrl",

@@ -8,6 +8,7 @@
     </div>
     <el-table
       :data="userList"
+      v-bind="childrenProps"
       @selection-change="handleSelectionChange"
       border
       stripe
@@ -34,17 +35,16 @@
       </template>
     </el-table>
     <div class="footer">
-      <slot name="footer">
-        <el-pagination
-          :currentPage="page.currentPage"
-          :page-size="page.pageSize"
-          :page-sizes="[10, 20, 30, 40]"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="dataCount"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-        />
-      </slot>
+      <el-pagination
+        v-if="showPagination"
+        :currentPage="page.currentPage"
+        :page-size="page.pageSize"
+        :page-sizes="[10, 20, 30, 40]"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="dataCount"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      />
     </div>
   </div>
 </template>
@@ -85,6 +85,15 @@ export default defineComponent({
       type: [Number, String],
       default() {
         return 0;
+      },
+    },
+    childrenProps: {
+      type: Object,
+    },
+    showPagination: {
+      type: Boolean,
+      default() {
+        return true;
       },
     },
     page: {

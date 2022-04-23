@@ -12,8 +12,21 @@ const systemModule: Module<ISystemState, IRootState> = {
     roleCount: 0,
     goodsList: [],
     goodsCount: 0,
+    menuList: [],
+    menuCount: 0,
   },
-  getters: {},
+  getters: {
+    getPageList(state) {
+      return (pageName: string) => {
+        return (state as any)[`${pageName}List`];
+      };
+    },
+    getDataCount(state) {
+      return (pageName: string) => {
+        return (state as any)[`${pageName}Count`];
+      };
+    },
+  },
   mutations: {
     changeUserList(state, userList: IUserInfo[]) {
       state.userList = userList;
@@ -32,6 +45,12 @@ const systemModule: Module<ISystemState, IRootState> = {
     },
     changeGoodsCount(state, goodsCount: number) {
       state.goodsCount = goodsCount;
+    },
+    changeMenuList(state, menuList: IUserInfo[]) {
+      state.menuList = menuList;
+    },
+    changeMenuCount(state, menuCount: number) {
+      state.menuCount = menuCount;
     },
   },
   actions: {
@@ -57,7 +76,10 @@ const systemModule: Module<ISystemState, IRootState> = {
           break;
         }
       }
-      const pageResult = await getPageListData(pageUrl, payload.queryInfo);
+      const pageResult = await getPageListData(
+        pageUrl ? pageUrl : `${pageName}/list`,
+        payload.queryInfo
+      );
       console.log(pageResult);
       const { list, totalCount } = pageResult?.data;
       context.commit(

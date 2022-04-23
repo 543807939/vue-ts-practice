@@ -12,16 +12,16 @@
       </el-button>
     </template>
     <!-- table插槽 -->
-    <template #imgUrl="scope">
-      <el-image
-        style="width: 60px; height: 60px"
-        :src="scope.row.imgUrl"
-        fit="fill"
-        preview-teleported
-        :preview-src-list="[scope.row.imgUrl]"
-      />
-    </template>
+
     <template #enable="scope">
+      <el-button
+        plain
+        size="small"
+        :type="scope.row.enable == 0 ? 'warning' : 'primary'"
+        >{{ scope.row.enable == 0 ? "禁用" : "启用" }}</el-button
+      >
+    </template>
+    <template #status="scope">
       <el-button
         plain
         size="small"
@@ -52,6 +52,14 @@
       >
         <el-icon> <Delete /> </el-icon>删除
       </el-button>
+    </template>
+
+    <template
+      v-for="item in otherPropList"
+      :key="item.prop"
+      #[item.prop]="scope"
+    >
+      <slot :name="item.prop" :row="scope.row"></slot>
     </template>
   </my-table>
 </template>
@@ -98,6 +106,7 @@ export default defineComponent({
           query[key] = queryInfo[key];
         }
       }
+
       store.dispatch("systemModule/getPageList", {
         // url: "/users/list",
         pageName: props.pageName,
@@ -118,20 +127,33 @@ export default defineComponent({
     getPageData();
 
     // 从vuex获取数据
-    const userList = computed(
-      () => store.state.systemModule[`${props.pageName}List`]
+
+    const userList = computed(() =>
+      store.getters["systemModule/getPageList"](props.pageName)
     );
-    const totalNum = computed(
-      () => store.state.systemModule[`${props.pageName}Count`]
+    const totalNum = computed(() =>
+      store.getters["systemModule/getDataCount"](props.pageName)
     );
 
     // 获取动态插槽名称
+
+    const noSlotList = ["createAt", "updateAt", "handler", "status", "enable"];
+    console.log(props.contentTableConfig);
+
+    const otherPropList = props.contentTableConfig.propList.filter(
+      (item: any) => {
+        return !noSlotList.some((prop: any) => {
+          return item.prop == prop;
+        });
+      }
+    );
 
     return {
       getPageData,
       userList,
       totalNum,
       pageInfo,
+      otherPropList,
     };
   },
 });

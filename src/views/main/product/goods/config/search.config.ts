@@ -2,15 +2,27 @@ import { IForm } from "@/base-ui/form/types";
 const formConfig: IForm = {
   formItems: [
     {
-      field: "username",
+      field: "name",
       type: "input",
-      label: "角色名",
-      placeholder: "请输入角色名",
+      label: "商品名称",
+      placeholder: "请输入商品名称",
     },
     {
-      field: "intro",
-      type: "input",
-      label: "请输入权限介绍",
+      field: "status",
+      type: "select",
+      label: " 商品状态",
+      placeholder: "请选择商品状态",
+
+      options: [
+        {
+          label: "启用",
+          value: 1,
+        },
+        {
+          label: "禁用",
+          value: 0,
+        },
+      ],
     },
     {
       field: "createDate",
