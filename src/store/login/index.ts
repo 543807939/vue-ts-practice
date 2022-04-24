@@ -9,7 +9,7 @@ import {
 import { IAccount } from "@/service/login/type";
 
 import localCache from "@/utils/cache";
-import mapMenusToRoutes from "@/utils/map-menus";
+import mapMenusToRoutes, { mapMenusToPermissions } from "@/utils/map-menus";
 
 import router from "@/router";
 const loginModule: Module<ILoginState, IRootState> = {
@@ -19,6 +19,7 @@ const loginModule: Module<ILoginState, IRootState> = {
       token: "",
       userInfo: {},
       userMenus: [],
+      permissions: [],
     };
   },
   getters: {},
@@ -38,6 +39,8 @@ const loginModule: Module<ILoginState, IRootState> = {
       res.forEach((item) => {
         router.addRoute("main", item);
       });
+      const permissions = mapMenusToPermissions(payload);
+      state.permissions = permissions;
     },
   },
   actions: {

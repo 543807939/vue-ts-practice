@@ -7,7 +7,7 @@
   >
     <!-- header插槽 -->
     <template #headerHandler>
-      <el-button type="primary">
+      <el-button type="primary" v-if="isCreate">
         <el-icon> <document-add /> </el-icon>新建用户
       </el-button>
     </template>
@@ -37,6 +37,7 @@
     }}</template>
     <template #handler="scope">
       <el-button
+        v-if="isUpdate"
         plain
         size="small"
         type="primary"
@@ -45,6 +46,7 @@
         <el-icon> <Edit /> </el-icon>编辑
       </el-button>
       <el-button
+        v-if="isDelete"
         plain
         size="small"
         type="danger"
@@ -69,6 +71,7 @@ import MyTable from "@/base-ui/table";
 import { defineComponent, computed, ref, watch } from "vue";
 import { Edit, Delete, DocumentAdd } from "@element-plus/icons-vue";
 import { useStore } from "vuex";
+import { usePermission } from "@/hooks/use-permisson";
 export default defineComponent({
   components: {
     MyTable,
@@ -89,6 +92,14 @@ export default defineComponent({
   },
   setup(props: any) {
     const store = useStore();
+
+    // 获取操作权限
+    const isCreate = usePermission(props.pageName, "create");
+    const isUpdate = usePermission(props.pageName, "update");
+    const isDelete = usePermission(props.pageName, "delete");
+    const isQuery = usePermission(props.pageName, "query");
+    console.log(isQuery);
+
     //  定义分页
     const pageInfo = ref({
       pageSize: 10,
@@ -96,6 +107,9 @@ export default defineComponent({
     });
     // 发送请求
     const getPageData = (queryInfo?: any) => {
+      if (!isQuery) {
+        return;
+      }
       const query: any = {};
       for (const key in queryInfo) {
         if (
@@ -154,6 +168,9 @@ export default defineComponent({
       totalNum,
       pageInfo,
       otherPropList,
+      isCreate,
+      isUpdate,
+      isDelete,
     };
   },
 });

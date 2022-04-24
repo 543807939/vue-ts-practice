@@ -27,7 +27,7 @@ export default defineComponent({
     PageContent,
   },
   setup() {
-    const pageName = "user";
+    const pageName = "users";
     const { handleResetClick, pageContentRef, handleSearchClick } =
       userPageSearch();
     return {

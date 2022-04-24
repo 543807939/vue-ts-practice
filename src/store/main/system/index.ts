@@ -6,8 +6,8 @@ import { IUserInfo } from "@/service/system/types";
 const systemModule: Module<ISystemState, IRootState> = {
   namespaced: true,
   state: {
-    userList: [],
-    userCount: 0,
+    usersList: [],
+    usersCount: 0,
     roleList: [],
     roleCount: 0,
     goodsList: [],
@@ -28,11 +28,11 @@ const systemModule: Module<ISystemState, IRootState> = {
     },
   },
   mutations: {
-    changeUserList(state, userList: IUserInfo[]) {
-      state.userList = userList;
+    changeUsersList(state, userList: IUserInfo[]) {
+      state.usersList = userList;
     },
-    changeUserCount(state, totalCount: number) {
-      state.userCount = totalCount;
+    changeUsersCount(state, totalCount: number) {
+      state.usersCount = totalCount;
     },
     changeRoleList(state, roleList: IUserInfo[]) {
       state.roleList = roleList;
