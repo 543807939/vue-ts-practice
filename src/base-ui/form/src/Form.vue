@@ -4,17 +4,9 @@
     <el-form :label-width="labelWidth" ref="myForm">
       <el-row>
         <template v-for="(item, index) in formItems" :key="index">
-          <el-col
-            :style="colStyle"
-            :xs="{ span: 24 }"
-            :md="{ span: 12 }"
-            :lg="{ span: 8 }"
-            :xl="{ span: 6 }"
-          >
+          <el-col :style="colStyle" v-bind="item.colLayout || colLayout">
             <el-form-item :label="item.label" :rules="item.rules">
-              <template
-                v-if="item.type === 'input' || item.type === 'password'"
-              >
+              <template v-if="item.type === 'input' || item.type === 'password'">
                 <el-input
                   style="width: 100%"
                   :placeholder="item.placeholder"
@@ -53,9 +45,9 @@
   </div>
 </template>
 <script lang="ts">
-import { ElForm } from "element-plus";
-import { defineComponent, PropType, ref, watch } from "vue";
-import { IFormItem } from "../types";
+import { ElForm } from 'element-plus'
+import { defineComponent, PropType, ref, watch } from 'vue'
+import { IFormItem } from '../types'
 export default defineComponent({
   props: {
     modelValue: {
@@ -65,41 +57,52 @@ export default defineComponent({
     formItems: {
       type: Array as PropType<IFormItem[]>,
       default: () => {
-        return [];
+        return []
       },
     },
     labelWidth: {
       type: [String, Number],
       default() {
-        return 100;
+        return 100
       },
     },
     colStyle: {
       type: Object,
       default() {
         return {
-          padding: "10px 40px",
-        };
+          padding: '10px 40px',
+        }
+      },
+    },
+    colLayout: {
+      type: Object,
+      default() {
+        return {
+          xs: 24,
+          md: 12,
+          lg: 8,
+          xl: 6,
+        }
       },
     },
   },
-  emits: ["update:modelValue"],
+  emits: ['update:modelValue'],
   setup(props: any, { emit }) {
-    const formData = ref({ ...props.modelValue });
+    const formData = ref({ ...props.modelValue })
 
     watch(
       formData,
       (newValue) => {
-        emit("update:modelValue", newValue);
+        emit('update:modelValue', newValue)
       },
       { deep: true }
-    );
+    )
 
     return {
       formData,
-    };
+    }
   },
-});
+})
 </script>
 <style lang="scss" scoped>
 .my-form {

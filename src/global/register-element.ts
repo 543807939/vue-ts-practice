@@ -35,6 +35,7 @@ import {
   ElTableColumn,
   ElPagination,
   ElImage,
+  ElDialog,
 } from "element-plus/lib/components";
 
 import "element-plus/dist/index.css";
@@ -75,6 +76,7 @@ const components = [
   ElTableColumn,
   ElPagination,
   ElImage,
+  ElDialog,
 ];
 
 export default function registerElement(app: App) {
