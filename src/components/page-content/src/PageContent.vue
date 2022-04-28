@@ -162,6 +162,14 @@ export default defineComponent({
       }
     );
 
+    // 删除数据
+    const handleDelete = (item: any) => {
+      console.log(item);
+      store.dispatch("systemModule/deletePageData", {
+        pageName: props.pageName,
+        id: item.id,
+      });
+    };
     return {
       getPageData,
       userList,
@@ -171,6 +179,7 @@ export default defineComponent({
       isCreate,
       isUpdate,
       isDelete,
+      handleDelete,
     };
   },
 });

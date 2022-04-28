@@ -1,8 +1,9 @@
 import { IRootState } from "@/store/types";
 import { Module } from "vuex";
 import { ISystemState } from "./types";
-import { getPageListData } from "@/service/system/index";
+import { deletePageData, getPageListData } from "@/service/system/index";
 import { IUserInfo } from "@/service/system/types";
+
 const systemModule: Module<ISystemState, IRootState> = {
   namespaced: true,
   state: {
@@ -71,7 +72,6 @@ const systemModule: Module<ISystemState, IRootState> = {
           pageUrl = "goods/list";
           break;
         }
-
         default: {
           break;
         }
@@ -96,6 +96,24 @@ const systemModule: Module<ISystemState, IRootState> = {
         }Count`,
         totalCount
       );
+    },
+
+    // 删除信息
+    async deletePageData({ dispatch }, payload: any) {
+      const { pageName, id } = payload;
+      const pageUrl = `${pageName}/${id}`;
+      try {
+        await deletePageData(pageUrl);
+        dispatch("getPageList", {
+          pageName,
+          queryInfo: {
+            offset: 0,
+            size: 10,
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };
