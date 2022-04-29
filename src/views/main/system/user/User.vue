@@ -14,18 +14,24 @@
         @editBtnClick="handleEditData"
       ></page-content>
     </div>
-    <page-modal ref="pageModalRef" :defaultInfo="defaultInfo" :modalConfig="modalConfig"></page-modal>
+    <page-modal
+      ref="pageModalRef"
+      :defaultInfo="defaultInfo"
+      :modalConfig="modalConfig"
+    ></page-modal>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import PageSearch from '@/components/page-search'
-import { contentTableConfig } from './config/content.config'
-import formConfig from './config/search.config'
-import { modalConfig } from './config/modal.config'
-import PageContent from '@/components/page-content'
-import { userPageSearch } from '@/hooks/user-page-search'
-import PageModal from '@/components/page-modal'
+import { defineComponent } from "vue";
+import PageSearch from "@/components/page-search";
+import { contentTableConfig } from "./config/content.config";
+import formConfig from "./config/search.config";
+import PageContent from "@/components/page-content";
+import { userPageSearch } from "@/hooks/user-page-search";
+import PageModal from "@/components/page-modal";
+import { modalConfig } from "./config/modal.config";
+
+import { usePageModal } from "@/hooks/use-page-modal";
 export default defineComponent({
   components: {
     PageSearch,
@@ -33,28 +39,28 @@ export default defineComponent({
     PageModal,
   },
   setup() {
-    const pageName = 'users'
+    const pageName = "users";
+
     const { handleResetClick, pageContentRef, handleSearchClick } =
-      userPageSearch()
+      userPageSearch();
+    // 新增的回调函数
+    const newCallBack = () => {
+      const passwordItem = modalConfig.formItems.find((item) => {
+        return item.field === "password";
+      });
+      passwordItem!.isHidden = true;
+    };
+    // 编辑的回调函数
+    const editCallBack = () => {
+      const passwordItem = modalConfig.formItems.find((item) => {
+        return item.field === "password";
+      });
+      console.log(passwordItem);
 
-    const defaultInfo = ref({})
-
-    const pageModalRef = ref<InstanceType<typeof PageModal>>()
-    // 新增数据
-    const handleNewData = () => {
-      console.log('新增,user组件')
-      if (pageModalRef.value) {
-        pageModalRef.value.dialogVisible = true
-      }
-    }
-    // 编辑数据
-    const handleEditData = (item: any) => {
-      console.log(item, 'user组件')
-      defaultInfo.value = { ...item }
-      if (pageModalRef.value) {
-        pageModalRef.value.dialogVisible = true
-      }
-    }
+      passwordItem!.isHidden = false;
+    };
+    const { defaultInfo, pageModalRef, handleNewData, handleEditData } =
+      usePageModal(newCallBack, editCallBack);
     return {
       formConfig,
       contentTableConfig,
@@ -67,9 +73,9 @@ export default defineComponent({
       handleSearchClick,
       handleNewData,
       handleEditData,
-    }
+    };
   },
-})
+});
 </script>
 <style lang="scss" scoped>
 .content {

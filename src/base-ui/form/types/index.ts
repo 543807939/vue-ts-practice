@@ -10,6 +10,7 @@ export interface IFormItem {
   options?: any[];
   // datepicker选项
   otherOptions?: any;
+  isHidden?: boolean;
 }
 
 export interface IForm {
