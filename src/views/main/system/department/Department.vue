@@ -15,23 +15,23 @@
   </div>
 </template>
 <script lang="ts">
-import type { FormInstance, FormRules } from "element-plus";
-import { defineComponent, ref } from "vue";
+import type { FormInstance, FormRules } from 'element-plus'
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
   setup() {
     const form = ref({
-      name: "",
-      age: "",
-      nickname: "",
-    });
-    const formRef = ref<FormInstance>();
+      name: '',
+      age: '',
+      nickname: '',
+    })
+    const formRef = ref<FormInstance>()
     const reset = () => {
-      console.log("重置");
-      formRef.value?.resetFields();
-    };
-    return { form, reset, formRef };
+      console.log('重置')
+      formRef.value?.resetFields()
+    }
+    return { form, reset, formRef }
   },
-});
+})
 </script>
 <style lang="scss" scoped></style>
