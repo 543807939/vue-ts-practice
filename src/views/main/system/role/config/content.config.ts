@@ -1,5 +1,5 @@
 export const contentTableConfig = {
-  title: "用户列表",
+  title: "角色列表",
   showIndexColume: true,
   showSelectionColume: true,
   propList: [

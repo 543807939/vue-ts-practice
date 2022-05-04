@@ -13,3 +13,16 @@ export function deletePageData(url: string) {
     url,
   });
 }
+
+export function createPageData(url: string, newData: any) {
+  return MyRequest.post<IDataType>({
+    url,
+    data: newData,
+  });
+}
+export function editPageData(url: string, editData: any) {
+  return MyRequest.patch<IDataType>({
+    url,
+    data: editData,
+  });
+}

@@ -28,8 +28,6 @@ class MyRequest {
     // 所有实例都有的拦截器
     this.instance.interceptors.request.use(
       (config) => {
-        console.log(config);
-
         if (this.showLoading) {
           this.loading = ElLoading.service({
             lock: true,
@@ -82,6 +80,9 @@ class MyRequest {
   }
   put<T>(config: MyConfig): Promise<T> {
     return this.request({ ...config, method: "PUT" });
+  }
+  patch<T = any>(config: MyConfig): Promise<T> {
+    return this.request<T>({ ...config, method: "PATCH" });
   }
 }
 export default MyRequest;

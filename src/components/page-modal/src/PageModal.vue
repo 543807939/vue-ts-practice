@@ -8,12 +8,11 @@
       destroy-on-close
     >
       <my-form v-bind="modalConfig" v-model="formData"></my-form>
+      <slot></slot>
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>
-          <el-button type="primary" @click="dialogVisible = false"
-            >确定</el-button
-          >
+          <el-button type="primary" @click="handleConfirmClick">确定</el-button>
         </span>
       </template>
     </el-dialog>
@@ -21,6 +20,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, watch } from "vue";
+import { useStore } from "vuex";
 import MyForm from "@/base-ui/form";
 export default defineComponent({
   components: {
@@ -37,6 +37,16 @@ export default defineComponent({
         return {};
       },
     },
+    otherInfo: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
+    pageName: {
+      type: String,
+      required: true,
+    },
   },
   setup(props: any) {
     const dialogVisible = ref(false);
@@ -50,9 +60,28 @@ export default defineComponent({
         }
       }
     );
+    const store = useStore();
+    const handleConfirmClick = () => {
+      dialogVisible.value = false;
+      if (Object.keys(props.defaultInfo).length) {
+        // 编辑
+        store.dispatch("systemModule/editPageDataAction", {
+          pageName: props.pageName,
+          editData: { ...formData.value, ...props.otherInfo },
+          id: props.defaultInfo.id,
+        });
+      } else {
+        // 新建
+        store.dispatch("systemModule/createPageDataAction", {
+          pageName: props.pageName,
+          newData: { ...formData.value, ...props.otherInfo },
+        });
+      }
+    };
     return {
       dialogVisible,
       formData,
+      handleConfirmClick,
     };
   },
 });

@@ -16,13 +16,14 @@
     </div>
     <page-modal
       ref="pageModalRef"
+      :pageName="pageName"
       :defaultInfo="defaultInfo"
-      :modalConfig="modalConfig"
+      :modalConfig="modalConfigRef"
     ></page-modal>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
 import PageSearch from "@/components/page-search";
 import { contentTableConfig } from "./config/content.config";
 import formConfig from "./config/search.config";
@@ -32,6 +33,7 @@ import PageModal from "@/components/page-modal";
 import { modalConfig } from "./config/modal.config";
 
 import { usePageModal } from "@/hooks/use-page-modal";
+import { useStore } from "vuex";
 export default defineComponent({
   components: {
     PageSearch,
@@ -48,7 +50,7 @@ export default defineComponent({
       const passwordItem = modalConfig.formItems.find((item) => {
         return item.field === "password";
       });
-      passwordItem!.isHidden = true;
+      passwordItem!.isHidden = false;
     };
     // 编辑的回调函数
     const editCallBack = () => {
@@ -57,8 +59,36 @@ export default defineComponent({
       });
       console.log(passwordItem);
 
-      passwordItem!.isHidden = false;
+      passwordItem!.isHidden = true;
     };
+
+    // 动态添加部门和角色的选项
+    const store = useStore();
+    const modalConfigRef = computed(() => {
+      const departmentItem = modalConfig.formItems.find((item) => {
+        return item.field === "departmentId";
+      });
+      departmentItem!.options = store.state.entireDepartment.map(
+        (item: any) => {
+          return {
+            label: item.name,
+            value: item.id,
+          };
+        }
+      );
+      const roleItem = modalConfig.formItems.find((item) => {
+        return item.field === "roleId";
+      });
+
+      roleItem!.options = store.state.entireRole.map((item: any) => {
+        return {
+          label: item.name,
+          value: item.id,
+        };
+      });
+      return modalConfig;
+    });
+
     const { defaultInfo, pageModalRef, handleNewData, handleEditData } =
       usePageModal(newCallBack, editCallBack);
     return {
@@ -66,7 +96,7 @@ export default defineComponent({
       contentTableConfig,
       pageName,
       pageContentRef,
-      modalConfig,
+      modalConfigRef,
       pageModalRef,
       defaultInfo,
       handleResetClick,
