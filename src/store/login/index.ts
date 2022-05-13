@@ -59,7 +59,9 @@ const loginModule: Module<ILoginState, IRootState> = {
         localCache.setCache("userInfo", userInfo.data);
 
         //发送初始化请求(完整的role/department)
-        context.dispatch("getInitialDataAction", null, { root: true });
+        if (location.hash !== "#/login") {
+          context.dispatch("getInitialDataAction", null, { root: true });
+        }
 
         const {
           data: {
@@ -87,7 +89,9 @@ const loginModule: Module<ILoginState, IRootState> = {
       const userInfo = localCache.getCache("userInfo");
       if (userInfo) {
         context.commit("changeUserInfo", userInfo);
-        context.dispatch("getInitialDataAction", null, { root: true });
+        if (location.hash !== "#/login") {
+          context.dispatch("getInitialDataAction", null, { root: true });
+        }
       }
       const userMenus = localCache.getCache("userMenus");
       if (userMenus) {
